@@ -10,7 +10,7 @@ import { BaseResponseDto } from 'src/helper/base-response.dto';
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
-  @Post()
+  @Post('/create-user')
   async create(@Body() body: CreateUserDto): Promise<BaseResponseDto> {
     return this.adminService.createUser(body);
   }

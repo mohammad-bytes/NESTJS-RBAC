@@ -5,6 +5,7 @@ import { AdminModule } from './api/admin/admin.module';
 import { ModuleModule } from './api/module/module.module';
 import { PermissionModule } from './api/permission/permission.module';
 import { RoleModule } from './api/role/role.module';
+import { AuthModule } from './api/auth/auth.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { RoleModule } from './api/role/role.module';
     ModuleModule,
     PermissionModule,
     RoleModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

@@ -26,14 +26,9 @@ export class AdminService {
   async createUser(body: CreateUserDto): Promise<BaseResponseDto> {
     try {
       const isExits = await this.userRepository.count({
-        where: [
-          {
-            email: body.email.trim(),
-          },
-          {
-            phone: body.phone.trim(),
-          },
-        ],
+        where: {
+          email: body.email.trim(),
+        },
       });
 
       if (isExits != 0) {
@@ -81,25 +76,20 @@ export class AdminService {
     }
   }
 
-  async generateAdminCredential(){
+  async generateAdminCredential() {
     try {
-      const body={
-        first_name: "Admin",
-        last_name: "Admin",
-        phone: "9724073520",
-        email: "admin@gmail.com",
-        password:'Test@123'
+      const body = {
+        first_name: 'Admin',
+        last_name: 'Admin',
+        phone: '9724073520',
+        email: 'admin@gmail.com',
+        password: 'Test@123',
       };
 
       const isExits = await this.userRepository.count({
-        where: [
-          {
-            email: body.email.trim(),
-          },
-          {
-            phone: body.phone.trim(),
-          },
-        ],
+        where: {
+          email: body.email.trim(),
+        },
       });
 
       if (isExits != 0) {
@@ -112,21 +102,20 @@ export class AdminService {
       user.email = body.email.trim();
       user.phone = body.phone ? body.phone.trim() : null;
       user.password = await this.passwordHash(body.password);
-      user.email_verify=true;
-      user.is_active=true;
+      user.email_verify = true;
+      user.is_active = true;
 
-      const role=await this.roleRepository.findOne({
-        where:{
-          name:'super admin'
-        }
+      const role = await this.roleRepository.findOne({
+        where: {
+          name: 'super admin',
+        },
       });
-      
+
       await this.userRepository.save({
         ...user,
         role: { id: role.id },
       });
       return true;
-
     } catch (error) {
       throw new HttpException(
         error.message,

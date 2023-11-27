@@ -31,4 +31,8 @@ export const message = {
   USER_DELETED: 'User deleted successfully',
   USER_LIST: 'User fetched successfully',
   USER_EXITS: 'email or phone is already exits',
+
+  ACCOUNT_ACTIVATE: 'Your account is activate, Now you can login',
+  VERIFY_EMAIL: 'Your email is not verify, first verify email',
+  INVALID_CRED: 'Invalid your login credential',
 };

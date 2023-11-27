@@ -17,4 +17,8 @@ export class BaseResponseDto {
   @ApiProperty({ readOnly: false })
   @IsOptional()
   count?: number;
+
+  @ApiProperty({ readOnly: false })
+  @IsOptional()
+  access_token?: string;
 }

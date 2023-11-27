@@ -42,6 +42,28 @@ export class RoleService {
     }
   }
 
+  async createAdminRole(name, description): Promise<boolean> {
+    try {
+      const isExists = await this.roleRepository.count({
+        where: { name: name.toLocaleLowerCase() },
+      });
+      if (isExists != 0) {
+        return false;
+      }
+      const role = new Role();
+      role.name = name.toLocaleLowerCase();
+      role.description = description;
+      await this.roleRepository.save(role);
+
+      return true;
+    } catch (error) {
+      throw new HttpException(
+        error.message,
+        error.status || HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
   async createRolePermission(
     body: RolePermissionDto,
   ): Promise<BaseResponseDto> {

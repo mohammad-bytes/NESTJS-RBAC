@@ -29,7 +29,7 @@ export class User {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ default: null })
   activation_key: string;
 
   @Column({ default: false })

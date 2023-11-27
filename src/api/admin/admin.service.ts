@@ -10,6 +10,7 @@ import { JwtService } from '@nestjs/jwt';
 import { EmailService } from 'src/helper/email-helper.service';
 import * as ejs from 'ejs';
 import * as path from 'path';
+import { Role } from '../role/entities/role.entity';
 
 @Injectable()
 export class AdminService {
@@ -18,6 +19,8 @@ export class AdminService {
     private readonly userRepository: Repository<User>,
     private readonly jwtService: JwtService,
     private readonly emailService: EmailService,
+    @InjectRepository(Role)
+    private readonly roleRepository: Repository<Role>,
   ) {}
 
   async createUser(body: CreateUserDto): Promise<BaseResponseDto> {
@@ -70,6 +73,60 @@ export class AdminService {
         message: message.USER_CREATED,
         data,
       };
+    } catch (error) {
+      throw new HttpException(
+        error.message,
+        error.status || HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  async generateAdminCredential(){
+    try {
+      const body={
+        first_name: "Admin",
+        last_name: "Admin",
+        phone: "9724073520",
+        email: "admin@gmail.com",
+        password:'Test@123'
+      };
+
+      const isExits = await this.userRepository.count({
+        where: [
+          {
+            email: body.email.trim(),
+          },
+          {
+            phone: body.phone.trim(),
+          },
+        ],
+      });
+
+      if (isExits != 0) {
+        return false;
+      }
+
+      const user = new User();
+      user.first_name = body.first_name;
+      user.last_name = body.last_name;
+      user.email = body.email.trim();
+      user.phone = body.phone ? body.phone.trim() : null;
+      user.password = await this.passwordHash(body.password);
+      user.email_verify=true;
+      user.is_active=true;
+
+      const role=await this.roleRepository.findOne({
+        where:{
+          name:'super admin'
+        }
+      });
+      
+      await this.userRepository.save({
+        ...user,
+        role: { id: role.id },
+      });
+      return true;
+
     } catch (error) {
       throw new HttpException(
         error.message,

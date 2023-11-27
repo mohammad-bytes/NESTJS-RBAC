@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Verify account</title>
+</head>
+<body>
+	Hi,Welcome to admin panel
+    <h5><b><%= data.first_name %></b> <b><%= data.last_name %></b></h5>
+	<p>below are your system generated credentials. login after immediately change</p>
+	
+	<p><b>Email Id</b>:<%= data.email %></p>
+	<p><b>Password</b>:<%= password %></p>
+
+	<p>below link on click to verify account</p>
+	<button>
+		<a href=`<%= url%>`>Verify account</a>
+	</button>
+	<br/>
+	<%= url%>
+	<br/><br/>
+	<span>Regards</span>
+	<br/>
+	<span>Admin@panel</span>
+</body>
+</html>

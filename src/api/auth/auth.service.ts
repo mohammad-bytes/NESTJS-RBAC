@@ -34,7 +34,10 @@ export class AuthService {
         throw new HttpException(message.INVALID_CRED, HttpStatus.UNAUTHORIZED);
       }
       const access_token = await this.jwtService.sign(
-        { email: user.email, role: user.role },
+        {
+          id: user.id,
+          email: user.email,
+        },
         { secret: process.env.SECRET },
       );
 

@@ -1,4 +1,4 @@
 import { SetMetadata } from '@nestjs/common';
 
-export const Permission = (...permissions: string[]) =>
+export const PermissionModule = (...permissions: string[]) =>
   SetMetadata('permission', permissions);

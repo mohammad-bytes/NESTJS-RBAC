@@ -11,6 +11,7 @@ import { EmailService } from 'src/helper/email-helper.service';
 import * as ejs from 'ejs';
 import * as path from 'path';
 import { Role } from '../role/entities/role.entity';
+import { adminCredential } from 'src/constant/admin-cred';
 
 @Injectable()
 export class AdminService {
@@ -63,6 +64,16 @@ export class AdminService {
         ...user,
         role: { id: body.role },
       });
+
+      delete data.activation_key;
+      delete data.password;
+      delete data.is_active;
+      delete data.is_deleted;
+      delete data.reset_password_token;
+      delete data.reset_password_token_datetime;
+      delete data.updated_at;
+      delete data.created_at;
+
       return {
         statusCode: HttpStatus.CREATED,
         message: message.USER_CREATED,
@@ -78,13 +89,7 @@ export class AdminService {
 
   async generateAdminCredential() {
     try {
-      const body = {
-        first_name: 'Admin',
-        last_name: 'Admin',
-        phone: '9724073520',
-        email: 'admin@gmail.com',
-        password: 'Test@123',
-      };
+      const body = adminCredential;
 
       const isExits = await this.userRepository.count({
         where: {

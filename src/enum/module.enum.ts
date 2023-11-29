@@ -5,4 +5,5 @@ export enum ModuleName {
   PERMISSION = 'permission',
   ME = 'me',
   DASHBOARD = 'dashboard',
+  ROLE_PERMISSION = 'role-permission',
 }

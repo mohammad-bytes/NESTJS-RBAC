@@ -15,6 +15,6 @@ export class MeController {
   @Get('/')
   // @PermissionModule(ModuleName.ME, Permission.READ)
   async me(@GetUser() user) {
-    return await this.meService.me(user); 
+    return await this.meService.me(user);
   }
 }

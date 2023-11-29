@@ -35,4 +35,6 @@ export const message = {
   ACCOUNT_ACTIVATE: 'Your account is activate, Now you can login',
   VERIFY_EMAIL: 'Your email is not verify, first verify email',
   INVALID_CRED: 'Invalid your login credential',
+
+  FORBIDDEN: "You don't have permission to access this resource.",
 };

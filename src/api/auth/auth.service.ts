@@ -89,7 +89,7 @@ export class AuthService {
   }
 
   async forgotPassword(email): Promise<BaseResponseDto> {
-    try {
+    try {  
       const userExits = await this.userRepository.findOne({ where: { email } });
       if (!userExits) {
         throw new NotFoundException(message.NOT_FOUND);
@@ -105,7 +105,7 @@ export class AuthService {
       const ejsTemplate = await ejs.renderFile(
         path.join(
           __dirname,
-          '../../../src/email-templates/forgot-password.ejs',
+          '../../email-templates/forgot-password.ejs',
         ),
         { data: userExits, url: resetPasswordLink },
         { sync: true },

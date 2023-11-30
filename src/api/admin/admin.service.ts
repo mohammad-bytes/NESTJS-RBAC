@@ -50,7 +50,7 @@ export class AdminService {
 
       const url = `${process.env.URL}/verify/${user.activation_key}`;
       const ejsTemplate = await ejs.renderFile(
-        path.join(__dirname, '../../../src/email-templates/account-verify.ejs'),
+        path.join(__dirname, '../../src/email-templates/account-verify.ejs'),
         { data: user, password, url },
         { sync: true },
       );

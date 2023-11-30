@@ -40,20 +40,18 @@ export class MeService {
       .where(`rp.role_id = ${data.role_id}`)
       .getRawMany();
 
-    const permission_data = permissionQuery.reduce((result, permission) => {
-      const existingModule = result.find(
-        (item) => item.module_name === permission.module_name,
+    const permission_data = permissionQuery.reduce((result, ele) => {
+      const exitsModule = result.find(
+        (val) => val.module_name === ele.module_name,
       );
-
-      if (existingModule) {
-        existingModule.permission_name.push(permission.permission_name);
+      if (!exitsModule) {
+        result.push(ele);
       } else {
-        result.push({
-          module: permission.module_name,
-          permission: [permission.permission_name],
-        });
+        exitsModule.permission_name = [
+          exitsModule.permission_name,
+          ele.permission_name,
+        ].flat(Infinity);
       }
-
       return result;
     }, []);
 

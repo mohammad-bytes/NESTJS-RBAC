@@ -43,7 +43,7 @@ export class User {
   reset_password_token: string;
 
   @Column({ default: null })
-  reset_password_token_datetime: Date;
+  reset_password_token_datetime: number;
 
   @Column({ default: false })
   is_active: boolean;

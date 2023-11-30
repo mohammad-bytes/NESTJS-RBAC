@@ -37,4 +37,9 @@ export const message = {
   INVALID_CRED: 'Invalid your login credential',
 
   FORBIDDEN: "You don't have permission to access this resource.",
+
+  FORGOT_PASS_LINK: 'Forgot password link send on your email address.',
+  RESET_PASS: 'Reset password has been successfully',
+  RESET_PASS_EXPIRE: 'Reset password link has been expired.',
+  INVALID_RESET_PASSWORD_LINK: 'Invalid reset password link',
 };

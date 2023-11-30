@@ -54,16 +54,17 @@ export class AdminService {
         { data: user, password, url },
         { sync: true },
       );
-      await this.emailService.sendEmail(
-        user.email,
-        'Your credential',
-        ejsTemplate,
-      );
 
       const data = await this.userRepository.save({
         ...user,
         role: { id: body.role },
       });
+
+      await this.emailService.sendEmail(
+        user.email,
+        'Your credential',
+        ejsTemplate,
+      );
 
       delete data.activation_key;
       delete data.password;

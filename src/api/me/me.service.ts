@@ -45,7 +45,10 @@ export class MeService {
         (val) => val.module_name === ele.module_name,
       );
       if (!exitsModule) {
-        result.push(ele);
+        result.push({
+          module_name: ele.module_name,
+          permission_name: ele.permission_name.split(' '),
+        });
       } else {
         exitsModule.permission_name = [
           exitsModule.permission_name,

@@ -34,16 +34,17 @@ export class PermissionGuard implements CanActivate {
         return true;
       }
 
-      // checking user has module permission to read or write
       const module = data?.module_permission?.find(
-        (val) => val.module == requiredRoles[0],
+        (module) => module.module_name === requiredRoles[0],
       );
-      const response = module?.permission?.some(
-        (ele) => ele == requiredRoles[1],
+
+      const permission = module?.permission_name?.some(
+        (ele) => ele === requiredRoles[1],
       );
-      if (response) {
+      if (permission) {
         return true;
       }
+
       throw new ForbiddenException(message.FORBIDDEN);
     } catch (error) {
       throw new HttpException(error.message, error.status);

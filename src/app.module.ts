@@ -8,10 +8,17 @@ import { RoleModule } from './api/role/role.module';
 import { AuthModule } from './api/auth/auth.module';
 import { MeModule } from './api/me/me.module';
 import { DashboardModule } from './api/dashboard/dashboard.module';
-
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 3,
+      },
+    ]),
     AdminModule,
     ModuleModule,
     PermissionModule,
@@ -19,6 +26,12 @@ import { DashboardModule } from './api/dashboard/dashboard.module';
     AuthModule,
     MeModule,
     DashboardModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 export class AppModule {}

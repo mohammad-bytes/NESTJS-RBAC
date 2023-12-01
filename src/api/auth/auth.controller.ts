@@ -4,10 +4,12 @@ import { LoginDto } from './dto/login.dto';
 import { BaseResponseDto } from 'src/helper/base-response.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ForgotPasswordDto, ResetPasswordDto } from './dto/auth.dto';
+import { Throttle } from '@nestjs/throttler';
 
 @Controller('auth')
 @ApiTags('Auth')
 @ApiBearerAuth()
+@Throttle({})
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 

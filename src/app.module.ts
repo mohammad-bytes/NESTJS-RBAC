@@ -10,6 +10,7 @@ import { MeModule } from './api/me/me.module';
 import { DashboardModule } from './api/dashboard/dashboard.module';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { PaymentModule } from './api/payment/payment.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
@@ -26,6 +27,7 @@ import { APP_GUARD } from '@nestjs/core';
     AuthModule,
     MeModule,
     DashboardModule,
+    PaymentModule,
   ],
   providers: [
     {
